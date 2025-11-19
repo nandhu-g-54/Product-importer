@@ -2,8 +2,7 @@ fastapi
 uvicorn
 sqlalchemy
 psycopg2-binary
+python-multipart
+requests
 celery
 redis
-python-dotenv
-python-multipart
-httpx
