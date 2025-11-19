@@ -1,0 +1,17 @@
+# Product Importer
+
+FastAPI backend + Celery worker for importing products from CSV into PostgreSQL.
+
+## Quick run (dev, Docker recommended)
+
+- Ensure PostgreSQL and Redis are available.
+- Set env vars: DATABASE_URL, CELERY_BROKER_URL, CELERY_RESULT_BACKEND, UPLOAD_DIR (optional)
+- Create DB tables: run python snippet to call `Base.metadata.create_all(bind=engine)`
+- Start worker: `celery -A app.workers.celery_worker.celery worker --loglevel=info -Q csv_jobs`
+- Start API: `uvicorn app.main:app --reload`
+
+API:
+- Upload CSV: `POST /api/upload/` (multipart file)
+- Check progress via task/result (progress stored in Redis by task)
+- Product CRUD: `/api/products/`
+- Webhooks: `/api/webhooks/`
